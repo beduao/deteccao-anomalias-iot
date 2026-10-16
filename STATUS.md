@@ -134,8 +134,9 @@ Leitura rápida:
   ainda não testada: o Orange não normalizou as features; o nosso pipeline
   normaliza (`StandardScaler`).
 - **F1 macro baixo no ToN-W10 (rede neural e kNN, 0,87)** vem da classe `mitm`,
-  com 15 registros no arquivo e uns 5 no teste. Com tão poucos casos, o número
-  oscila muito.
+  com 15 registros no arquivo e 4 no teste: os dois modelos erram os 4 (F1 da
+  classe = 0). Sem `mitm`, o macro seria 0,999 (rede neural) e 0,997 (kNN).
+  Com tão poucos casos, o número oscila muito. (Conferido em 16/10.)
 - O SVM deu `ConvergenceWarning` (não convergiu em 3.000 iterações) no ToN-W10 e
   no BoT-IoT com identificadores.
 
