@@ -1,0 +1,24 @@
+# Imagem de inferencia para Raspberry Pi 3 Model B (arm64).
+# Use Raspberry Pi OS de 64 bits: as rodas (wheels) de numpy/scikit-learn
+# existem para arm64, mas NAO para armv7. Em 32 bits o pip tenta compilar
+# tudo do zero e leva horas.
+FROM python:3.11-slim-bookworm
+
+# tshark e o backend do PyShark. DEBIAN_FRONTEND evita o prompt interativo
+# sobre permitir captura por usuarios nao-root.
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        tshark libpcap0.8 \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY requirements-pi.txt .
+RUN pip install --no-cache-dir -r requirements-pi.txt
+
+COPY src/ ./src/
+COPY models/ ./models/
+
+# --net=host e NET_RAW/NET_ADMIN sao obrigatorios: sem eles o container
+# so enxerga a rede virtual do Docker e a captura vem vazia.
+ENTRYPOINT ["python", "src/detect.py"]
+CMD ["--model", "models/rf_edge.joblib", "--iface", "eth0"]

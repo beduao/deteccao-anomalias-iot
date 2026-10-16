@@ -1,0 +1,21 @@
+{
+  "features": [
+    "duration",
+    "src_bytes",
+    "dst_bytes",
+    "src_pkts",
+    "dst_pkts",
+    "bytes_per_pkt_src",
+    "bytes_per_pkt_dst",
+    "pkts_per_sec",
+    "bytes_ratio",
+    "proto",
+    "state"
+  ],
+  "label": "label",
+  "trained_on": "botiot.parquet",
+  "sklearn": "1.8.0",
+  "numpy": "2.4.4",
+  "pandas": "3.0.2",
+  "model_size_kb": 119.6
+}

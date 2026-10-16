@@ -1,0 +1,4 @@
+# Texto sempre com fim de linha LF no repositorio (o Raspberry Pi e Linux).
+* text=auto eol=lf
+# O modelo e binario: nunca converter fins de linha.
+*.joblib binary

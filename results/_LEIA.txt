@@ -1,0 +1,2 @@
+As tabelas de metricas (metrics.csv, replication.csv) e o log da captura
+ao vivo (live_flows.csv) serao gravados aqui.

@@ -1,0 +1,5 @@
+Coloque aqui os CSVs brutos das bases, em subpastas:
+  data/raw/botiot/      CSVs do BoT-IoT "10 best features"
+  data/raw/toniot_net/  CSVs do ToN-IoT Network (opcional)
+  data/raw/ciciot/      CSVs do CICIoT2023
+Os arquivos ja processados (.parquet ou .csv.gz) serao gravados direto em data/.

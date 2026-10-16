@@ -1,0 +1,2 @@
+O modelo treinado (rf_edge.joblib) e o metadata.json serao gravados aqui
+quando voce rodar src/train.py.

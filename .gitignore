@@ -1,0 +1,14 @@
+data/raw/
+data/*.parquet
+data/*.csv.gz
+models/*.joblib
+# Excecao: o modelo do Raspberry Pi (cerca de 120 KB) vai no repositorio para
+# que o Pi possa clonar e rodar o detect.py direto.
+!models/rf_edge.joblib
+results/*.csv
+results/*.tmp
+__pycache__/
+
+# Documentos de estudo pessoais
+Sintese_Roteiro_Estudo.docx
+Sintese_Roteiro_Estudo.pdf
