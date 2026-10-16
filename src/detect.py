@@ -121,7 +121,10 @@ def main() -> None:
             meter.add(pkt)
             n_pkts += 1
             if n_pkts % 50 == 0:
-                emit(meter.expire())
+                # No .pcap, o "agora" e o horario do pacote lido: os pacotes
+                # gravados tem horario do passado e, comparados ao relogio,
+                # toda conexao pareceria ociosa e seria fechada aos pedacos.
+                emit(meter.expire(now=float(pkt.sniff_timestamp) if args.pcap else None))
     except (KeyboardInterrupt, EOFError):
         pass
     finally:
