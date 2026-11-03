@@ -62,6 +62,8 @@ def main() -> None:
     ap.add_argument("--out", default="results/live_flows.csv")
     ap.add_argument("--phase", default="unlabeled",
                     help="rotulo por construcao: benign | attack")
+    ap.add_argument("--n-jobs", type=int, default=1,
+                    help="nucleos por previsao do Random Forest (-1 = todos)")
     args = ap.parse_args()
 
     if not (args.iface or args.pcap):
@@ -72,7 +74,14 @@ def main() -> None:
     print(f"[detect] Carregando {args.model} ...")
     t0 = time.perf_counter()
     model = joblib.load(args.model)
-    print(f"[detect] Modelo carregado em {time.perf_counter() - t0:.2f}s")
+    # n_jobs nao muda a previsao, so quantos nucleos ela usa. O modelo foi
+    # salvo com -1 (todos); com um fluxo por vez, dividir as arvores entre os
+    # nucleos pode custar mais do que economiza.
+    clf = model[-1] if hasattr(model, "steps") else model
+    if hasattr(clf, "n_jobs"):
+        clf.n_jobs = args.n_jobs
+    print(f"[detect] Modelo carregado em {time.perf_counter() - t0:.2f}s "
+          f"(n_jobs={args.n_jobs})")
 
     meter = FlowMeter()
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)

@@ -26,6 +26,13 @@ IDLE_TIMEOUT = 15.0     # segundos sem pacote -> fecha o fluxo
 ACTIVE_TIMEOUT = 120.0  # duracao maxima antes de emitir mesmo ativo
 
 
+def _flag(value) -> bool:
+    # Versoes antigas do tshark escrevem as flags TCP como "1"/"0"; as novas,
+    # como "True"/"False". Comparando so com "1", nenhum SYN ou FIN era
+    # reconhecido no Pi e todo fluxo TCP saia com estado OTHER (01/11).
+    return str(value).strip().lower() in ("1", "true")
+
+
 @dataclass
 class Flow:
     proto: str
@@ -96,15 +103,15 @@ class FlowMeter:
             if hasattr(pkt, "tcp"):
                 proto = "tcp"
                 sport, dport = int(pkt.tcp.srcport), int(pkt.tcp.dstport)
-                syn = pkt.tcp.flags_syn == "1"
-                ack = pkt.tcp.flags_ack == "1"
+                syn = _flag(pkt.tcp.flags_syn)
+                ack = _flag(pkt.tcp.flags_ack)
                 if syn and ack:
                     flags.add("SYNACK")
                 elif syn:
                     flags.add("SYN")
-                if pkt.tcp.flags_reset == "1":
+                if _flag(pkt.tcp.flags_reset):
                     flags.add("RST")
-                if pkt.tcp.flags_fin == "1":
+                if _flag(pkt.tcp.flags_fin):
                     flags.add("FIN")
             elif hasattr(pkt, "udp"):
                 proto = "udp"

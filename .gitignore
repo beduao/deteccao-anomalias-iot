@@ -9,6 +9,9 @@ results/*.csv
 results/*.tmp
 __pycache__/
 
+# Nome e senha do Wi-Fi do ESP32
+esp32/**/segredos.h
+
 # Documentos de estudo pessoais
 Sintese_Roteiro_Estudo.docx
 Sintese_Roteiro_Estudo.pdf
