@@ -1,0 +1,16 @@
+[detect] Carregando models/rf_edge.joblib ...
+[detect] Modelo carregado em 6.72s (n_jobs=1)
+[ALERTA] 192.168.18.7:62010 -> 192.168.18.123:1883 tcp RESET conf=0.701
+[ALERTA] 192.168.18.7:49812 -> 192.168.18.123:1883 tcp RESET conf=0.619
+
+==========================================================
+  Pacotes processados : 649
+  Fluxos classificados: 11
+  Alertas (ataque)    : 2
+  Latencia media      : 55490.9 us/fluxo
+  Latencia p95        : 62432.4 us/fluxo
+  Vazao teorica       : 18 fluxos/s
+  Pico de RAM         : 150.4 MB
+  Tempo total         : 22.7s
+==========================================================
+  Log salvo em: results/pcap_flows_persistente.csv
